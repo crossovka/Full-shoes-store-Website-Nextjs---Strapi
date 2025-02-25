@@ -1,11 +1,12 @@
 import type { Metadata } from 'next'
+
 import { Geist, Geist_Mono } from 'next/font/google'
 import '@/styles/globals.css'
-// import { Provider } from 'react-redux';
-// import store from '@/store/store';
+
 import Header from '@/components/layout/Header/Header'
 import Footer from '@/components/layout/Footer'
 import Head from 'next/head'
+import StoreProvider from '@/components/layout/StoreProvider'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -44,11 +45,11 @@ export default function RootLayout({
 						rel="stylesheet"
 					/>
 				</Head>
-				{/* <Provider store={store}> */}
-				<Header />
-				<main className="container mx-auto p-4 flex-grow">{children}</main>
-				<Footer />
-				{/* </Provider> */}
+				<StoreProvider>
+					<Header />
+					<main>{children}</main>
+					<Footer />
+				</StoreProvider>
 			</body>
 		</html>
 	)
