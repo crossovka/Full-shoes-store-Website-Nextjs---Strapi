@@ -1,7 +1,7 @@
-import { cartSlice } from './cart/cart.slice'
 import { productActions } from './product/product.slice'
+import { categoryActions } from './category/category.slice'
 
 export const rootActions = {
-	...cartSlice.actions,
-	...productActions 
+	...productActions,
+	...categoryActions
 }

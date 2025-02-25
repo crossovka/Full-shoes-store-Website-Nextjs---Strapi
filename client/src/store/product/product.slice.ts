@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Product, ProductState } from './product.types'
-import { fetchProducts } from './product.asyncActions'
+import { fetchProductBySlug, fetchProducts } from './product.asyncActions'
 
 const initialState: ProductState = {
 	products: [],
 	isLoading: false,
+	product: null,
 	error: null
 }
 
@@ -26,11 +27,25 @@ export const productSlice = createSlice({
 				state.isLoading = false
 				state.error = action.error.message || 'Failed to load products'
 			})
+			// Обработка запроса одного продукта
+			.addCase(fetchProductBySlug.pending, (state) => {
+				state.isLoading = true
+				state.product = null
+				state.error = null
+			})
+			.addCase(fetchProductBySlug.fulfilled, (state, action: PayloadAction<Product>) => {
+				state.isLoading = false
+				state.product = action.payload
+			})
+			.addCase(fetchProductBySlug.rejected, (state, action) => {
+				state.isLoading = false
+				state.error = action.error.message || 'Failed to load product'
+			})
 	}
 })
 
-
 export const productActions = {
-  ...productSlice.actions, // Все обычные actions
-  fetchProducts
+	...productSlice.actions, // Все обычные actions
+	fetchProducts,
+	fetchProductBySlug
 }

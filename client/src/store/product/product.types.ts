@@ -4,6 +4,7 @@ export interface ProductState {
 	products: Product[]
 	isLoading: boolean
 	error: string | null
+	product: Product | null
 }
 
 export interface ProductSize {

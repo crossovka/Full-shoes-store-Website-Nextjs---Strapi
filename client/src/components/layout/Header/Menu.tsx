@@ -1,13 +1,6 @@
-import React from 'react'
 import Link from 'next/link'
 import { BsChevronDown } from 'react-icons/bs'
-
-interface MenuItem {
-	id: number
-	name: string
-	url?: string
-	subMenu?: boolean
-}
+import { Category } from '@/store/category/category.types'
 
 interface MenuProps {
 	showCatMenu: boolean
@@ -15,51 +8,38 @@ interface MenuProps {
 	categories: Category[] | null
 }
 
-const data: MenuItem[] = [
-	{ id: 1, name: 'Home', url: '/' },
-	{ id: 2, name: 'About', url: '/about' },
-	{ id: 3, name: 'Categories', subMenu: true },
-	{ id: 4, name: 'Contact', url: '/contact' }
-]
-
 const Menu: React.FC<MenuProps> = ({ showCatMenu, setShowCatMenu, categories }) => {
 	return (
 		<ul className="hidden md:flex items-center gap-8 font-medium text-black">
-			{data.map((item) => (
-				<React.Fragment key={item.id}>
-					{item.subMenu ? (
-						<li
-							className="cursor-pointer flex items-center gap-2 relative"
-							onMouseEnter={() => setShowCatMenu(true)}
-							onMouseLeave={() => setShowCatMenu(false)}
-						>
-							{item.name}
-							<BsChevronDown size={14} />
-
-							{showCatMenu && (
-								<ul className="bg-white absolute top-6 left-0 min-w-[250px] px-1 py-1 text-black shadow-lg">
-									{categories?.map(({ attributes: c, id }) => (
-										<Link
-											key={id}
-											href={`/category/${c.slug}`}
-											onClick={() => setShowCatMenu(false)}
-										>
-											<li className="h-12 flex justify-between items-center px-3 hover:bg-black/[0.03] rounded-md">
-												{c.name}
-												<span className="opacity-50 text-sm">{`(${c.products.data.length})`}</span>
-											</li>
-										</Link>
-									))}
-								</ul>
-							)}
-						</li>
-					) : (
-						<li className="cursor-pointer">
-							<Link href={item.url || '#'}>{item.name}</Link>
-						</li>
-					)}
-				</React.Fragment>
-			))}
+			<li className="cursor-pointer">
+				<Link href="/">Home</Link>
+			</li>
+			<li className="cursor-pointer">
+				<Link href="/about">About</Link>
+			</li>
+			<li
+				className="cursor-pointer flex items-center gap-2 relative"
+				onMouseEnter={() => setShowCatMenu(true)}
+				onMouseLeave={() => setShowCatMenu(false)}
+			>
+				Categories
+				<BsChevronDown size={14} />
+				{showCatMenu && categories && (
+					<ul className="bg-white absolute top-6 left-0 min-w-[250px] px-1 py-1 text-black shadow-lg">
+						{categories.map(({ id, name, slug, products }) => (
+							<Link key={id} href={`/category/${slug}`} onClick={() => setShowCatMenu(false)}>
+								<li className="h-12 flex justify-between items-center px-3 hover:bg-black/[0.03] rounded-md">
+									{name}
+									<span className="opacity-50 text-sm">{`(${products.length})`}</span>
+								</li>
+							</Link>
+						))}
+					</ul>
+				)}
+			</li>
+			<li className="cursor-pointer">
+				<Link href="/contact">Contact</Link>
+			</li>
 		</ul>
 	)
 }

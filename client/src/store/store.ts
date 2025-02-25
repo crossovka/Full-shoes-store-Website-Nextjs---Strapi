@@ -4,21 +4,22 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistStore } from 'redux-persist'
 import persistReducer from 'redux-persist/es/persistReducer'
 
-import { cartSlice } from './cart/cart.slice'
 import { productSlice } from './product/product.slice'
+import { categorySlice } from './category/category.slice'
 
 // Конфигурация persist
 const persistConfig = {
 	key: 'root',
-	storage, // Используем localStorage
-	whitelist: ['cart', 'product']
+	storage,
+	whitelist: ['cart', 'product', 'category']
 }
+
 
 
 // Комбинируем редюсеры
 const rootReducer = combineReducers({
-	cart: cartSlice.reducer,
-	product: productSlice.reducer
+	product: productSlice.reducer,
+	category: categorySlice.reducer
 })
 
 // Применяем persistReducer

@@ -8,3 +8,6 @@ export const selectIsLoading = (state: RootState) => state.product.isLoading
 
 // Селектор для ошибки
 export const selectError = (state: RootState) => state.product.error
+
+// Селектор для выбранного товара
+export const selectProduct = (state: RootState) => state.product.product

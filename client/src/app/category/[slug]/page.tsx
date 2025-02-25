@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import ProductCard from '@/components/ProductCard'
+import ProductCard from '@/components/ui/ProductCard'
 import Wrapper from '@/components/layout/Wrapper'
 
 // Массив с продуктами для теста

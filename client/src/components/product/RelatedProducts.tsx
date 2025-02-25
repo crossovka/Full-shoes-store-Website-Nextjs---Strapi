@@ -2,7 +2,7 @@ import React from 'react'
 
 import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css'
-import ProductCard from '../ProductCard'
+import ProductCard from '../ui/ProductCard'
 
 const RelatedProducts = ({ products }) => {
 	const responsive = {

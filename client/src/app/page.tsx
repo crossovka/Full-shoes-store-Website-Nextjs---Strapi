@@ -3,11 +3,11 @@ import { useEffect } from 'react'
 
 import { useAppSelector } from '@/store/store'
 import { useActions } from '@/hooks/useActions'
-import { selectError, selectIsLoading, selectProducts } from '@/store/product/ product.selectors'
+import { selectError, selectIsLoading, selectProducts } from '@/store/product/product.selectors'
 
 import HeroBanner from '@/components/home/HeroBanner'
 import Wrapper from '@/components/layout/Wrapper'
-import ProductCard from '@/components/ProductCard'
+import ProductCard from '@/components/ui/ProductCard'
 
 export default function HomePage() {
 	const { fetchProducts } = useActions()
