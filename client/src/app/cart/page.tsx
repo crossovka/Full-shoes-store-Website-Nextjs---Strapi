@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import Wrapper from '@/components/layout/Wrapper'
+import CartItem from '@/components/cart/CartItem'
 
 const Cart = () => {
 	const cartItems = [

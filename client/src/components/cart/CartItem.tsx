@@ -6,16 +6,16 @@ import { useDispatch } from 'react-redux'
 const CartItem = ({ data }) => {
 	const p = data
 
-	const dispatch = useDispatch()
+	// const dispatch = useDispatch()
 
-	const updateCartItem = (e, key) => {
-		const payload = {
-			key,
-			val: key === 'quantity' ? parseInt(e.target.value) : e.target.value,
-			id: data.id
-		}
-		// dispatch(updateCart(payload)); // No dispatch needed for static data
-	}
+	// const updateCartItem = (e, key) => {
+	// 	const payload = {
+	// 		key,
+	// 		val: key === 'quantity' ? parseInt(e.target.value) : e.target.value,
+	// 		id: data.id
+	// 	}
+	// 	// dispatch(updateCart(payload)); // No dispatch needed for static data
+	// }
 
 	return (
 		<div className="flex py-5 gap-3 md:gap-5 border-b">
@@ -35,7 +35,7 @@ const CartItem = ({ data }) => {
 							<div className="font-semibold">Size:</div>
 							<select
 								className="hover:text-black"
-								onChange={(e) => updateCartItem(e, 'selectedSize')}
+								// onChange={(e) => updateCartItem(e, 'selectedSize')}
 							>
 								{p.sizes.map((size, i) => (
 									<option key={i} value={size}>
@@ -47,7 +47,9 @@ const CartItem = ({ data }) => {
 
 						<div className="flex items-center gap-1">
 							<div className="font-semibold">Quantity:</div>
-							<select className="hover:text-black" onChange={(e) => updateCartItem(e, 'quantity')}>
+							<select className="hover:text-black"
+							//  onChange={(e) => updateCartItem(e, 'quantity')}
+							 >
 								{Array.from({ length: 10 }, (_, i) => i + 1).map((q, i) => (
 									<option key={i} value={q}>
 										{q}
