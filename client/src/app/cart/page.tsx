@@ -14,11 +14,9 @@ const Cart = () => {
 	const dispatch = useAppDispatch()
 	const cartItems = useAppSelector(selectCartItems)
 
-	// const subTotal = useMemo(() => {
-	// 	return cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
-	// }, [cartItems])
-
-	const subTotal = 1
+	const subTotal = useMemo(() => {
+		return cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+	}, [cartItems])
 
 	// Обработчик очистки корзины
 	const handleClearCart = () => {

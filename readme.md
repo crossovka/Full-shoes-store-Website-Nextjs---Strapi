@@ -1,15 +1,20 @@
 ﻿# Shoes store NextJs & Strapi CMS
 
 ## Описание
-Интернет магазин кроссовок
+Интернет магазин кроссовок на nextJs & strapi CMS
 
 ## Todo
-- auth
+- Избранное
+- Заказы
+- вход / регестрация
 
 ## Скриншоты
 
 ![alt text](./imgs/1.png)
 ![alt text](./imgs/2.png)
+![alt text](./imgs/3.png)
+![alt text](./imgs/4.png)
+![alt text](./imgs/5.png)
 
 DATABASE_CLIENT=postgres
 DATABASE_HOST=127.0.0.1
@@ -19,7 +24,6 @@ DATABASE_USERNAME=Username
 DATABASE_PASSWORD=Password
 DATABASE_SSL=false
 DATABASE_FILENAME=
-
 
 Vyacheslav Tchekasin best-login-mail@yandex.ru Monkey123
 
