@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 
 import { useAppSelector } from '@/store/store'
 import { useActions } from '@/hooks/useActions'
-import { selectError, selectIsLoading, selectProducts } from '@/store/product/product.selectors'
+import { selectProductError, selectProductIsLoading, selectProducts } from '@/store/product/product.selectors'
 
 import HeroBanner from '@/components/home/HeroBanner'
 import Wrapper from '@/components/layout/Wrapper'
@@ -12,8 +12,8 @@ import ProductCard from '@/components/ui/ProductCard'
 export default function HomePage() {
 	const { fetchProducts } = useActions()
 	const products = useAppSelector(selectProducts)
-	const isLoading = useAppSelector(selectIsLoading)
-	const error = useAppSelector(selectError)
+	const isLoading = useAppSelector(selectProductIsLoading)
+	const error = useAppSelector(selectProductError)
 
 	useEffect(() => {
 		fetchProducts()

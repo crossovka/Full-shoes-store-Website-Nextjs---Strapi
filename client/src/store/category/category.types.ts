@@ -27,6 +27,7 @@ export interface CategoryResponse {
 
 export interface CategoryState {
 	categories: Category[]
+	selectedCategory: Category | null
 	isLoading: boolean
 	error: string | null
 }

@@ -9,12 +9,8 @@ export const fetchCategories = createAsyncThunk(
 	async (_, { rejectWithValue }) => {
 		try {
 			const { data } = await axios.get<CategoryResponse>(getStrapiURL('categories?populate=*'))
-
-			console.log('Fetched categories:', data.data) // Логируем данные
-
 			return data.data
 		} catch (error) {
-			console.error('Fetch categories error:', error)
 			return rejectWithValue(error instanceof Error ? error.message : 'Failed to fetch categories')
 		}
 	}

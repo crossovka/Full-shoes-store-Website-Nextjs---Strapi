@@ -1,12 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Product, ProductState } from './product.types'
-import { fetchProductBySlug, fetchProducts } from './product.asyncActions'
+import { Product, ProductResponse, ProductState } from './product.types'
+import {
+	fetchProductsByCategorySlug,
+	fetchProductBySlug,
+	fetchProducts
+} from './product.asyncActions'
 
 const initialState: ProductState = {
 	products: [],
 	isLoading: false,
 	product: null,
-	error: null
+	error: null,
+	pagination: {
+		page: 1,
+		pageSize: 12,
+		pageCount: 1,
+		total: 0
+	}
 }
 
 export const productSlice = createSlice({
@@ -41,11 +51,34 @@ export const productSlice = createSlice({
 				state.isLoading = false
 				state.error = action.error.message || 'Failed to load product'
 			})
+			// Логика для получения по slug
+			.addCase(fetchProductsByCategorySlug.pending, (state) => {
+				state.isLoading = true
+				state.products = [] // Очистка продуктов перед загрузкой
+				state.error = null // Сброс ошибки
+			})
+			.addCase(fetchProductsByCategorySlug.fulfilled, (state, action: PayloadAction<ProductResponse>) => {
+				console.log('Пагинация из ответа:', action.payload.meta.pagination);
+				state.isLoading = false;
+				state.products = action.payload.data;
+				state.pagination = {
+					page: action.payload.meta.pagination.page,
+					pageSize: action.payload.meta.pagination.pageSize,
+					pageCount: action.payload.meta.pagination.pageCount,
+					total: action.payload.meta.pagination.total
+				};
+			})
+			
+			.addCase(fetchProductsByCategorySlug.rejected, (state, action) => {
+				state.isLoading = false // Остановка индикатора загрузки
+				state.error = action.error.message || 'Failed to load product' // Сохранение ошибки
+			})
 	}
 })
 
 export const productActions = {
 	...productSlice.actions, // Все обычные actions
 	fetchProducts,
-	fetchProductBySlug
+	fetchProductBySlug,
+	fetchProductsByCategorySlug
 }

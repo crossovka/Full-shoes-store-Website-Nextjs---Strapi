@@ -5,6 +5,12 @@ export interface ProductState {
 	isLoading: boolean
 	error: string | null
 	product: Product | null
+	pagination: {
+		page: number
+		pageSize: number
+		pageCount: number
+		total: number
+	} | null
 }
 
 export interface ProductSize {

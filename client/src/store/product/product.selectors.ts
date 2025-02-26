@@ -4,10 +4,13 @@ import { RootState } from '@/store/store'
 export const selectProducts = (state: RootState) => state.product.products
 
 // Селектор для статуса загрузки
-export const selectIsLoading = (state: RootState) => state.product.isLoading
+export const selectProductIsLoading = (state: RootState) => state.product.isLoading
 
 // Селектор для ошибки
-export const selectError = (state: RootState) => state.product.error
+export const selectProductError = (state: RootState) => state.product.error
 
 // Селектор для выбранного товара
 export const selectProduct = (state: RootState) => state.product.product
+
+// Селектор для получения информации о пагинации
+export const selectProductPagination = (state: RootState) => state.product?.pagination;

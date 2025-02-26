@@ -4,6 +4,7 @@ import { fetchCategories } from './category.asyncActions'
 
 const initialState: CategoryState = {
 	categories: [],
+	selectedCategory: null,
 	isLoading: false,
 	error: null
 }
