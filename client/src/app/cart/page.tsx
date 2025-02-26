@@ -1,35 +1,33 @@
+'use client'
 import React, { useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import { useAppDispatch, useAppSelector } from '@/store/store'
+import { selectCartItems } from '@/store/cart/cart.selectors'
+import { clearCart } from '@/store/cart/cart.slice'
+
 import Wrapper from '@/components/layout/Wrapper'
 import CartItem from '@/components/cart/CartItem'
 
 const Cart = () => {
-	const cartItems = [
-		{
-			id: 1,
-			name: 'Test Product 1',
-			thumbnail: '/path/to/image.jpg',
-			price: 500,
-			sizes: ['S', 'M', 'L']
-		},
-		{
-			id: 2,
-			name: 'Test Product 2',
-			thumbnail: '/path/to/image.jpg',
-			price: 1200,
-			sizes: ['M', 'L', 'XL']
-		}
-	]
+	const dispatch = useAppDispatch()
+	const cartItems = useAppSelector(selectCartItems)
 
-	const subTotal = useMemo(() => {
-		return cartItems.reduce((total, val) => total + val.price, 0)
-	}, [cartItems])
+	// const subTotal = useMemo(() => {
+	// 	return cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+	// }, [cartItems])
 
+	const subTotal = 1
+
+	// Обработчик очистки корзины
+	const handleClearCart = () => {
+		dispatch(clearCart())
+	}
 	return (
 		<div className="w-full md:py-20">
 			<Wrapper>
-				{cartItems.length > 0 && (
+				{cartItems.length > 0 ? (
 					<>
 						<div className="text-center max-w-[800px] mx-auto mt-8 md:mt-0">
 							<div className="text-[28px] md:text-[34px] mb-5 font-semibold leading-tight">
@@ -40,9 +38,11 @@ const Cart = () => {
 						<div className="flex flex-col lg:flex-row gap-12 py-10">
 							<div className="flex-[2]">
 								<div className="text-lg font-bold">Cart Items</div>
-								{cartItems.map((item) => (
-									<CartItem key={item.id} data={item} />
-								))}
+								{cartItems.map((item) => {
+									// Создаем уникальный ключ с учетом размера
+									const productIdWithSize = `${item.id}-${item.size}`
+									return <CartItem key={productIdWithSize} data={item} />
+								})}
 							</div>
 
 							<div className="flex-[1]">
@@ -67,12 +67,18 @@ const Cart = () => {
 								<button className="w-full py-4 rounded-full bg-black text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75 flex items-center gap-2 justify-center">
 									Checkout
 								</button>
+
+								{/* Кнопка для очистки корзины */}
+								<button
+									onClick={handleClearCart}
+									className="w-full py-4 rounded-full bg-red-600 text-white text-lg font-medium transition-transform active:scale-95 mb-3 hover:opacity-75 flex items-center gap-2 justify-center"
+								>
+									Clear Cart
+								</button>
 							</div>
 						</div>
 					</>
-				)}
-
-				{cartItems.length < 1 && (
+				) : (
 					<div className="flex-[2] flex flex-col items-center pb-[50px] md:-mt-14">
 						<Image
 							src="/empty-cart.jpg"

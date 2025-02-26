@@ -6,6 +6,7 @@ import persistReducer from 'redux-persist/es/persistReducer'
 
 import { productSlice } from './product/product.slice'
 import { categorySlice } from './category/category.slice'
+import { cartSlice } from './cart/cart.slice'
 
 // Конфигурация persist
 const persistConfig = {
@@ -14,12 +15,11 @@ const persistConfig = {
 	whitelist: ['cart', 'product', 'category']
 }
 
-
-
 // Комбинируем редюсеры
 const rootReducer = combineReducers({
 	product: productSlice.reducer,
-	category: categorySlice.reducer
+	category: categorySlice.reducer,
+	cart: cartSlice.reducer
 })
 
 // Применяем persistReducer

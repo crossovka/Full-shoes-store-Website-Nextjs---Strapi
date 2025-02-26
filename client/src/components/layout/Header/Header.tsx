@@ -2,18 +2,20 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+
 import { useAppSelector } from '@/store/store'
 import { useActions } from '@/hooks/useActions'
 import { selectCategories } from '@/store/category/category.selectors'
+import { selectCartItems } from '@/store/cart/cart.selectors'
+
+import { IoMdHeartEmpty } from 'react-icons/io'
+import { BiMenuAltRight } from 'react-icons/bi'
+import { VscChromeClose } from 'react-icons/vsc'
+import { BsCart } from 'react-icons/bs'
 
 import Wrapper from '../Wrapper'
 import Menu from './Menu'
 import MenuMobile from './MenuMobile'
-
-import { IoMdHeartEmpty } from 'react-icons/io'
-import { BsCart } from 'react-icons/bs'
-import { BiMenuAltRight } from 'react-icons/bi'
-import { VscChromeClose } from 'react-icons/vsc'
 
 const Header: React.FC = () => {
 	const [mobileMenu, setMobileMenu] = useState<boolean>(false)
@@ -23,6 +25,8 @@ const Header: React.FC = () => {
 
 	const { fetchCategories } = useActions()
 	const categories = useAppSelector(selectCategories)
+	const cartItems = useAppSelector(selectCartItems)
+	const cartQuantity = cartItems.reduce((total, item) => total + item.quantity, 0)
 
 	const controlNavbar = () => {
 		if (window.scrollY > 200) {
@@ -75,6 +79,9 @@ const Header: React.FC = () => {
 					<Link href="/cart">
 						<div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
 							<BsCart className="text-[15px] md:text-[20px]" />
+							<div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
+								{cartQuantity}
+							</div>
 						</div>
 					</Link>
 					<div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex md:hidden justify-center items-center hover:bg-black/[0.05] cursor-pointer relative -mr-2">

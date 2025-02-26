@@ -22,9 +22,12 @@ export const fetchProductBySlug = createAsyncThunk<Product, string, { rejectValu
 	async (slug, { rejectWithValue }) => {
 		try {
 			const { data } = await axios.get<ProductResponse>(
-				getStrapiURL(`products?filters[slug][$eq]=${slug}&populate=*`)
+				getStrapiURL(`products?filters[slug][$eq]=${encodeURIComponent(
+					slug
+				)}&populate=*`)
 			)
 			if (data.data.length === 0) throw new Error('Product not found')
+			console.log('fetchProductBySlug response:', data) // Вывод в консоль
 			return data.data[0] // Берем первый найденный товар
 		} catch (error) {
 			console.error('Error fetching product:', error)
