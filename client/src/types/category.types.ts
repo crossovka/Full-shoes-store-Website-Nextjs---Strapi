@@ -1,4 +1,4 @@
-import { Product } from '../product/product.types'
+import { Product } from '../store/product/product.types'
 
 export interface Category {
 	id: number
@@ -25,9 +25,9 @@ export interface CategoryResponse {
 	}
 }
 
-export interface CategoryState {
-	categories: Category[]
-	selectedCategory: Category | null
-	isLoading: boolean
-	error: string | null
-}
+// export interface CategoryState {
+// 	categories: Category[]
+// 	selectedCategory: Category | null
+// 	isLoading: boolean
+// 	error: string | null
+// }

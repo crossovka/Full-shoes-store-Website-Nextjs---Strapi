@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { BsChevronDown } from 'react-icons/bs'
-import { Category } from '@/store/category/category.types'
+import { Category } from '@/types/category.types'
 
 interface MenuProps {
 	showCatMenu: boolean

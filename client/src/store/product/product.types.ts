@@ -1,17 +1,4 @@
-import { ImageProps } from '@/types'
-
-export interface ProductState {
-	products: Product[]
-	isLoading: boolean
-	error: string | null
-	product: Product | null
-	pagination: {
-		page: number
-		pageSize: number
-		pageCount: number
-		total: number
-	} | null
-}
+import { ImageProps } from '@/types/types'
 
 export interface ProductSize {
 	size: string
@@ -45,4 +32,17 @@ export interface ProductResponse {
 			total: number
 		}
 	}
+}
+
+export interface ProductState {
+	products: Product[]
+	isLoading: boolean
+	error: string | null
+	product: Product | null
+	pagination: {
+		page: number
+		pageSize: number
+		pageCount: number
+		total: number
+	} | null
 }

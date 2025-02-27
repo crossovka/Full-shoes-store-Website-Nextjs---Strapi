@@ -1,13 +1,7 @@
-"use client"
+'use client'
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-
-import { useAppSelector } from '@/store/store'
-import { useActions } from '@/hooks/useActions'
-import { selectCategories } from '@/store/category/category.selectors'
-import { selectCartItems } from '@/store/cart/cart.selectors'
-
 import { IoMdHeartEmpty } from 'react-icons/io'
 import { BiMenuAltRight } from 'react-icons/bi'
 import { VscChromeClose } from 'react-icons/vsc'
@@ -16,22 +10,32 @@ import { BsCart } from 'react-icons/bs'
 import Wrapper from '../Wrapper'
 import Menu from './Menu'
 import MenuMobile from './MenuMobile'
+import { Category } from '@/types/category.types'
+import { getCategories } from '@/utils/api'
 
 const Header: React.FC = () => {
 	const [mobileMenu, setMobileMenu] = useState(false)
 	const [showCatMenu, setShowCatMenu] = useState(false)
+	const [categories, setCategories] = useState<Category[]>([])
+	const [isLoading, setIsLoading] = useState(true)
 	const [show, setShow] = useState('translate-y-0')
 	const [lastScrollY, setLastScrollY] = useState(0)
 
-	const { fetchCategories } = useActions()
-	const categories = useAppSelector(selectCategories)
-	const cartItems = useAppSelector(selectCartItems)
-	const [cartQty, setCartQty] = useState(0)
-
+	// Загружаем категории при монтировании компонента
 	useEffect(() => {
-		setCartQty(cartItems.reduce((total, item) => total + item.quantity, 0))
-	}, [cartItems])
-	
+		const loadCategories = async () => {
+			try {
+				const data = await getCategories()
+				setCategories(data)
+			} catch (error) {
+				console.error('Error fetching categories:', error)
+			} finally {
+				setIsLoading(false)
+			}
+		}
+
+		loadCategories()
+	}, [])
 
 	const controlNavbar = () => {
 		if (window.scrollY > 200) {
@@ -53,10 +57,9 @@ const Header: React.FC = () => {
 		}
 	}, [lastScrollY, mobileMenu])
 
-	useEffect(() => {
-		fetchCategories()
-	}, [fetchCategories])
-
+	if (isLoading) {
+		return <div>Loading...</div> // Можно добавить какой-то лоадер или спиннер
+	}
 	return (
 		<header
 			className={`w-full h-[50px] md:h-[80px] bg-white flex items-center justify-between z-20 sticky top-0 transition-transform duration-300 ${show}`}
@@ -85,7 +88,7 @@ const Header: React.FC = () => {
 						<div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
 							<BsCart className="text-[15px] md:text-[20px]" />
 							<div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
-								{cartQty}
+								0
 							</div>
 						</div>
 					</Link>

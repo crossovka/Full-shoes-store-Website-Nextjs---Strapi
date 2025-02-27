@@ -5,20 +5,18 @@ import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE, persistStore } from 
 import persistReducer from 'redux-persist/es/persistReducer'
 
 import { productSlice } from './product/product.slice'
-import { categorySlice } from './category/category.slice'
 import { cartSlice } from './cart/cart.slice'
 
 // Конфигурация persist
 const persistConfig = {
 	key: 'root',
 	storage,
-	whitelist: ['cart', 'product', 'category']
+	whitelist: ['cart', 'product']
 }
 
 // Комбинируем редюсеры
 const rootReducer = combineReducers({
 	product: productSlice.reducer,
-	category: categorySlice.reducer,
 	cart: cartSlice.reducer
 })
 
