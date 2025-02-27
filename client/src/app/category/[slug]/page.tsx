@@ -1,12 +1,16 @@
-import React from 'react'
 import CategoryPage from '@/components/category/CategoryPage'
+import { fetchProductsByCategorySlug } from '@/utils/api'
 
-const CategoryLayout = ({ params }: { params: Promise<{ slug: string }> }) => {
-	const { slug } = React.use(params) // Теперь params - это Promise, нужно его распаковать
+const CategoryRoute = async ({ params }: { params: { slug: string } }) => {
+  const { slug } = params
 
-	if (!slug) return <div>Loading...</div> // Можно добавить состояние загрузки
-
-	return <CategoryPage slug={slug} />
+  try {
+    const { products: initialProducts, pagination } = await fetchProductsByCategorySlug(slug, 1)
+    return <CategoryPage slug={slug} initialProducts={initialProducts} initialPagination={pagination} />
+  } catch (error) {
+    console.error('Ошибка загрузки данных для категории', error)
+    return <div>Ошибка загрузки данных для категории: {slug}</div>
+  }
 }
 
-export default CategoryLayout
+export default CategoryRoute

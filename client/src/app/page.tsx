@@ -1,5 +1,4 @@
-
-import { Product } from '@/store/product/product.types'
+import { Product } from '@/types/product.types'
 import { fetchFromStrapi } from '@/utils/api'
 import { API_ROUTES } from '@/utils/apiRoutes'
 

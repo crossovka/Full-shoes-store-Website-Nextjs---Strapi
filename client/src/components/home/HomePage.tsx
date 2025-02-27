@@ -1,7 +1,7 @@
 import HeroBanner from '@/components/home/HeroBanner'
 import Wrapper from '@/components/layout/Wrapper'
 import ProductCard from '@/components/ui/ProductCard'
-import { Product } from '@/store/product/product.types'
+import { Product } from '@/types/product.types'
 
 type HomePageProps = {
 	products: Product[]

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 import { getDiscountedPricePercentage } from '@/utils/getDiscountedPricePercentage'
-import { Product } from '@/store/product/product.types'
+import { Product } from '@/types/product.types'
 import { StrapiImage } from './StrapiImage'
 
 interface ProductCardProps {
@@ -12,7 +12,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data: p }) => {
 	return (
 		<article className="transform overflow-hidden bg-white duration-200 hover:scale-105 cursor-pointer">
 			<Link href={`/product/${p.slug}`}>
-			<StrapiImage
+				<StrapiImage
 					src={p.thumbnail?.url || '/placeholder.jpg'}
 					alt={p.thumbnail?.alternativeText || `Купить ${p.name} онлайн`}
 					className="w-full h-auto"

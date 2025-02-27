@@ -34,15 +34,15 @@ export interface ProductResponse {
 	}
 }
 
-export interface ProductState {
-	products: Product[]
-	isLoading: boolean
-	error: string | null
-	product: Product | null
-	pagination: {
-		page: number
-		pageSize: number
-		pageCount: number
-		total: number
-	} | null
-}
+// export interface ProductState {
+// 	products: Product[]
+// 	isLoading: boolean
+// 	error: string | null
+// 	product: Product | null
+// 	pagination: {
+// 		page: number
+// 		pageSize: number
+// 		pageCount: number
+// 		total: number
+// 	} | null
+// }

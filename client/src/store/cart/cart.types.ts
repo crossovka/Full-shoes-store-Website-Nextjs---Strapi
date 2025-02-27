@@ -1,4 +1,4 @@
-import { Product } from '../product/product.types'
+import { Product } from '../../types/product.types'
 
 export interface CartState {
 	items: CartItem[]
@@ -6,6 +6,6 @@ export interface CartState {
 }
 
 export interface CartItem extends Product {
-	quantity: number,
+	quantity: number
 	productIdWithSize: string
 }
