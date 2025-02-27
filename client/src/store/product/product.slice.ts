@@ -3,7 +3,6 @@ import { Product, ProductResponse, ProductState } from './product.types'
 import {
 	fetchProductsByCategorySlug,
 	fetchProductBySlug,
-	fetchProducts
 } from './product.asyncActions'
 
 const initialState: ProductState = {
@@ -25,18 +24,6 @@ export const productSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder
-			.addCase(fetchProducts.pending, (state) => {
-				state.isLoading = true
-				state.error = null
-			})
-			.addCase(fetchProducts.fulfilled, (state, action: PayloadAction<Product[]>) => {
-				state.isLoading = false
-				state.products = action.payload
-			})
-			.addCase(fetchProducts.rejected, (state, action) => {
-				state.isLoading = false
-				state.error = action.error.message || 'Failed to load products'
-			})
 			// Обработка запроса одного продукта
 			.addCase(fetchProductBySlug.pending, (state) => {
 				state.isLoading = true
@@ -78,7 +65,6 @@ export const productSlice = createSlice({
 
 export const productActions = {
 	...productSlice.actions, // Все обычные actions
-	fetchProducts,
 	fetchProductBySlug,
 	fetchProductsByCategorySlug
 }
