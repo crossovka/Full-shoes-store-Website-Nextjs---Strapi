@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
@@ -18,15 +18,20 @@ import Menu from './Menu'
 import MenuMobile from './MenuMobile'
 
 const Header: React.FC = () => {
-	const [mobileMenu, setMobileMenu] = useState<boolean>(false)
-	const [showCatMenu, setShowCatMenu] = useState<boolean>(false)
-	const [show, setShow] = useState<string>('translate-y-0')
-	const [lastScrollY, setLastScrollY] = useState<number>(0)
+	const [mobileMenu, setMobileMenu] = useState(false)
+	const [showCatMenu, setShowCatMenu] = useState(false)
+	const [show, setShow] = useState('translate-y-0')
+	const [lastScrollY, setLastScrollY] = useState(0)
 
 	const { fetchCategories } = useActions()
 	const categories = useAppSelector(selectCategories)
 	const cartItems = useAppSelector(selectCartItems)
-	const cartQuantity = cartItems.reduce((total, item) => total + item.quantity, 0)
+	const [cartQty, setCartQty] = useState(0)
+
+	useEffect(() => {
+		setCartQty(cartItems.reduce((total, item) => total + item.quantity, 0))
+	}, [cartItems])
+	
 
 	const controlNavbar = () => {
 		if (window.scrollY > 200) {
@@ -46,11 +51,11 @@ const Header: React.FC = () => {
 		return () => {
 			window.removeEventListener('scroll', controlNavbar)
 		}
-	}, [lastScrollY])
+	}, [lastScrollY, mobileMenu])
 
 	useEffect(() => {
 		fetchCategories()
-	}, [])
+	}, [fetchCategories])
 
 	return (
 		<header
@@ -80,7 +85,7 @@ const Header: React.FC = () => {
 						<div className="w-8 md:w-12 h-8 md:h-12 rounded-full flex justify-center items-center hover:bg-black/[0.05] cursor-pointer relative">
 							<BsCart className="text-[15px] md:text-[20px]" />
 							<div className="h-[14px] md:h-[18px] min-w-[14px] md:min-w-[18px] rounded-full bg-red-600 absolute top-1 left-5 md:left-7 text-white text-[10px] md:text-[12px] flex justify-center items-center px-[2px] md:px-[5px]">
-								{cartQuantity}
+								{cartQty}
 							</div>
 						</div>
 					</Link>
